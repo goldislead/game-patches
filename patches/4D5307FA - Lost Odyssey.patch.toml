@@ -73,3 +73,37 @@ hash = "C0A4515E25B5D74B" # Disc 1/2/3/4, default.xex
     [[patch.be32]]
         address = 0x828f9ed4
         value = 0x93df0054
+
+[[patch]]
+    name = "Resolution Scaling Fix"
+    desc = "Patches post-processing effects to be upscaling-friendly."
+    author = "Mr Pibb"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x8295b62c
+        value = 0xc0000000
+    [[patch.be32]]
+        address = 0x82698f50
+        value = 0xc0200000
+    [[patch.be32]]
+        address = 0x8271c49c
+        value = 0xc01f0000
+
+[[patch]]
+    name = "Disable MSAA"
+    author = "Mr Pibb"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x827ac8f8
+        value = 0x3b400000
+    [[patch.be32]]
+        address = 0x827ba0c0
+        value = 0x3ae00001
+    [[patch.be32]]
+        address = 0x823bad40
+        value = 0x39400000
+    [[patch.be32]]
+        address = 0x823d46a8
+        value = 0x3ae00000
