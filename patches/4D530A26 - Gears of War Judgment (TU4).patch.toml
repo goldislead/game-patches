@@ -47,7 +47,7 @@ hash = "013148141A27D4C7" # default.xex
 [[patch]]
     name = "Disable All Post-Processing"
     desc = "Dramatically changes the overall look of the game, but fixes all edge-detection overcorrection and color smearing when upscaling."
-    author = "boma, Mr Pibb"
+    author = "boma"
     is_enabled = false
 
     [[patch.be16]]
@@ -57,7 +57,7 @@ hash = "013148141A27D4C7" # default.xex
 [[patch]]
     name = "Resolution Scaling Fix"
     desc = "Use alongside Disable FXAA. Patches post-processing effects to be upscaling-friendly."
-    author = "Mr Pibb"
+    author = "boma"
     is_enabled = false
 
     [[patch.be8]]
@@ -70,7 +70,7 @@ hash = "013148141A27D4C7" # default.xex
 [[patch]]
     name = "Disable FXAA"
     desc = "A clearer image at the expense of slightly more aliasing."
-    author = "Mr Pibb"
+    author = "boma"
     is_enabled = false
 
     [[patch.be32]]
@@ -126,7 +126,7 @@ hash = "013148141A27D4C7" # default.xex
 [[patch]]
     name = "Disable Film Grain"
     desc = "Disables the film grain post-process effect. Does not impact performance."
-    author = "Mr Pibb"
+    author = "boma"
     is_enabled = false
 
     [[patch.be32]]
@@ -156,17 +156,93 @@ hash = "013148141A27D4C7" # default.xex
         value = 0x01
 
 [[patch]]
-    name = "Steam Deck / 16:10 Aspect Ratio"
-    desc = "Must set present_letterbox = false in the Xenia Canary config."
-    author = "TudorHorse, Mr Pibb"
+    name = "21:9 Aspect Ratio Support"
+    desc = "Must set present_letterbox = FALSE in the xenia canary config. Expands gameplay & UI & cutscene rendering to true 21:9 ultrawide, updates the FOV axis constraint for proper framing, and adds pillarboxing for pre-rendered videos. Because the game now renders at 1280x550, certain elements may appear more aliased."
+    author = "boma"
     is_enabled = false
 
     [[patch.be16]]
         address = 0x82992666
-        value = 0x0320
+        value = 0x0220
+    [[patch.be32]]
+        address = 0x827f1dd4 # Define screen height in SceneRenderTargets, avoid crashing
+        value = 0x3bc002d0
     [[patch.f32]]
-        address = 0x82083350
+        address = 0x82082c30
+        value = 2.38
+    [[patch.be16]]
+        address = 0x826404f8
+        value = 0x4800
+    [[patch.be32]]
+        address = 0x82cba684 # Scale Scaleform UI
+        value = 0x38800001
+    [[patch.be32]]
+        address = 0x82902d18
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x82901b48
+        value = 0x4ba60a68
+    [[patch.be32]]
+        address = 0x82362db0
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x82362db4
+        value = 0x3d603fa8
+    [[patch.be32]]
+        address = 0x82362db8
+        value = 0x616b0000
+    [[patch.be32]]
+        address = 0x82362dbc
+        value = 0x91610050
+    [[patch.be32]]
+        address = 0x82362dc0
+        value = 0xc0010050
+    [[patch.be32]]
+        address = 0x82362dc4
+        value = 0xec210032
+    [[patch.be32]]
+        address = 0x82362dc8
+        value = 0x4859ed84
+
+[[patch]]
+    name = "Steam Deck / 16:10 Aspect Ratio Support"
+    desc = "Must set present_letterbox = FALSE in the xenia canary config. Designed for Steam Deck and modern gaming laptop displays. Expands gameplay and cutscene rendering to true 16:10, updates the FOV axis constraint for proper framing, and adds pillarboxing for pre-rendered videos."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x82992692
+        value = 0x0480
+    [[patch.f32]]
+        address = 0x82082c30
         value = 1.6
     [[patch.be16]]
-        address = 0x82640504
+        address = 0x826404f8
         value = 0x4800
+    [[patch.be32]]
+        address = 0x82902d18
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x82901b48
+        value = 0x4ba60a68
+    [[patch.be32]]
+        address = 0x82362db0
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x82362db4
+        value = 0x3d603f66
+    [[patch.be32]]
+        address = 0x82362db8
+        value = 0x616b6666
+    [[patch.be32]]
+        address = 0x82362dbc
+        value = 0x91610050
+    [[patch.be32]]
+        address = 0x82362dc0
+        value = 0xc0010050
+    [[patch.be32]]
+        address = 0x82362dc4
+        value = 0xec210032
+    [[patch.be32]]
+        address = 0x82362dc8
+        value = 0x4859ed84

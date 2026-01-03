@@ -131,3 +131,177 @@ hash = "EF4AD5E9DD1982ED" # default.xex
     [[patch.be8]]
         address = 0x834290ec # Frametime
         value = 0x01
+
+[[patch]]
+    name = "21:9 Aspect Ratio"
+    desc = "Must set present_letterbox = false in the Xenia Canary config."
+    author = "boma, TudorHorse"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x82960c7a
+        value = 0x0220
+    [[patch.f32]]
+        address = 0x820cde2c
+        value = 2.38
+    [[patch.be16]]
+        address = 0x8261be7c
+        value = 0x4800
+    [[patch.be32]]
+        address = 0x828d5400
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x828d5460
+        value = 0x4ba85d18
+    [[patch.be32]]
+        address = 0x8235b178
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x8235b17c
+        value = 0x3d603fa8  # lis r11, 0x3FA8
+    [[patch.be32]]
+        address = 0x8235b180
+        value = 0x616b0000  # ori r11, r11, 0x0000
+    [[patch.be32]]
+        address = 0x8235b184
+        value = 0x91610050  # stw r11, 0x50(r1)
+    [[patch.be32]]
+        address = 0x8235b188
+        value = 0xc0010050  # lfs f0, 0x50(r1)
+    [[patch.be32]]
+        address = 0x8235b18c
+        value = 0xec210032  # fmuls f1, f1, f0
+    [[patch.be32]]
+        address = 0x8235b190
+        value = 0x4857a2d4
+
+[[patch]]
+    name = "Steam Deck / 16:10 Aspect Ratio"
+    desc = "Must set present_letterbox = false in the Xenia Canary config."
+    author = "boma, TudorHorse"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x82960f66
+        value = 0x0480
+    [[patch.f32]]
+        address = 0x820cde2c
+        value = 1.6
+    [[patch.be16]]
+        address = 0x8261be7c
+        value = 0x4800
+    [[patch.be32]]
+        address = 0x828d5400
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x828d5460
+        value = 0x4ba85d18
+    [[patch.be32]]
+        address = 0x8235b178
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x8235b17c
+        value = 0x3d603f66  # lis r11, 0x3F66
+    [[patch.be32]]
+        address = 0x8235b180
+        value = 0x616b6666  # ori r11, r11, 0x6666
+    [[patch.be32]]
+        address = 0x8235b184
+        value = 0x91610050  # stw r11, 0x50(r1)
+    [[patch.be32]]
+        address = 0x8235b188
+        value = 0xc0010050  # lfs f0, 0x50(r1)
+    [[patch.be32]]
+        address = 0x8235b18c
+        value = 0xec210032  # fmuls f1, f1, f0
+    [[patch.be32]]
+        address = 0x8235b190
+        value = 0x4857a2d4
+
+[[patch]]
+    name = "NVIDIA RTV Perfomance Fix"
+    desc = "Fixes various artifacts when using upscaling."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x827b6c40
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x827b8af4
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x827d0878 # projected shadow render, gathering draw lists
+        value = 0x4bb309a0 # b 0x82301218 code cave
+    [[patch.be32]]
+        address = 0x82301218 # load flags
+        value = 0x815e04e0 # lwz r10, 0x4E0(r30
+    [[patch.be32]]
+        address = 0x8230121c # whole-scene & preshadow amask
+        value = 0x5549014c # rlwinm r9, r10, 0, 5, 6
+    [[patch.be32]]
+        address = 0x82301220
+        value = 0x2b290000 # cmplwi cr6, r9, 0
+    [[patch.be32]]
+        address = 0x82301224 # not per-object, allow, send back to render
+        value = 0x409a000c # bne cr6 0x0c
+    [[patch.be32]]
+        address = 0x82301228 # not to exceed more than 12 shadow depth calls per frame
+        value = 0x2f10000c # cmpwi cr6, r16, 12
+    [[patch.be32]]
+        address = 0x8230122c # if more than 12, jump to skip stub
+        value = 0x4098000c
+    [[patch.be32]]
+        address = 0x82301230 # recreate overwritten insruction
+        value = 0x396b0001 # addi r11, r16, 1
+    [[patch.be32]]
+        address = 0x82301234 # resume original shadow render flow
+        value = 0x484cf648 # b 0x827D087C
+    [[patch.be32]]
+        address = 0x82301238 # skip stub
+        value = 0x484cf69c # b 0x827D08D4
+    [[patch.be16]]
+        address = 0x82960bb2
+        value = 0x0200 # ShadowDepthBufferX = 512
+    [[patch.be16]]
+        address = 0x82960bce
+        value = 0x0180 # ShadowDepthBufferX = 384
+    [[patch.be16]]
+        address = 0x82960bd2
+        value = 0x0400 # WholeSceneShadowBuffer = 1024
+    [[patch.be8]]
+        address = 0x8233f20b # Should use HW branching PCF?
+        value = 0x00 # NO
+    [[patch.be32]]
+        address = 0x827cacc4 # no idea, but 2-3 more FPS and it looks the same
+        value = 0x3aa00001
+    [[patch.be32]]
+        address = 0x8233f018 # Should use HW branching PCF?
+        value = 0x4800005c # DOULBE NO!
+    [[patch.be32]]
+        address = 0x8236de98 # CompositeDynamicLights = FALSE, less batching
+        value = 0x39600000
+    [[patch.be32]]
+        address = 0x82797d90 # CompositeDynamicLights = FALSE, less batching
+        value = 0x39600000
+    [[patch.be32]]
+        address = 0x829a138c # one frame
+        value = 0x38600000
+    [[patch.be32]]
+        address = 0x827cf8d0 #foregroundonworld
+        value = 0x3aa00000
+    [[patch.be32]]
+        address = 0x827cfa74 #foregroundonworld
+        value = 0x3b400000
+    [[patch.be32]]
+        address = 0x827d06c4 #foregroundonworld
+        value = 0x39600000
+    [[patch.be32]]
+        address = 0x827ccf6c #foregroundonworld
+        value = 0x39600000
+    [[patch.be32]]
+        address = 0x827d8f08 #conserv bounds
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x827d8f70 #conserv bounds
+        value = 0x39600001

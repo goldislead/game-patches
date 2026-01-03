@@ -141,3 +141,194 @@ hash = "7775898137CE1CE3" # default.xex
     [[patch.be8]]
         address = 0x834398ac # Frametime
         value = 0x01
+
+[[patch]]
+    name = "21:9 Aspect Ratio"
+    desc = "Must set present_letterbox = FALSE in the xenia canary config. Expands gameplay & UI & cutscene rendering to true 21:9 ultrawide, updates the FOV axis constraint for proper framing, and adds pillarboxing for pre-rendered videos. Because the game now renders at 1280x550, certain elements may appear more aliased."
+    desc = "Must set present_letterbox = false in the Xenia Canary config."
+    author = "boma, TudorHorse"
+    is_enabled = false
+
+    [[patch.f32]]
+        address = 0x820cded8
+        value = 2.33
+    [[patch.be32]]
+        address = 0x82bdd3bc # Scaleform UI SetScaleMode = 1
+        value = 0x38800001
+    [[patch.be16]]
+        address = 0x82971c52
+        value = 0x0228
+    [[patch.be32]]
+        address = 0x828e5b38
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x828e5b98
+        value = 0x4ba86060
+    [[patch.be32]]
+        address = 0x8236bbf8
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x8236bbfc
+        value = 0x3d603fa8
+    [[patch.be32]]
+        address = 0x8236bc00
+        value = 0x616b0000
+    [[patch.be32]]
+        address = 0x8236bc04
+        value = 0x91610050
+    [[patch.be32]]
+        address = 0x8236bc08
+        value = 0xc0010050
+    [[patch.be32]]
+        address = 0x8236bc0c
+        value = 0xec210032
+    [[patch.be32]]
+        address = 0x8236bc14
+        value = 0x48579f88
+    [[patch.be32]]
+        address = 0x827d7acc # Screen height below 0x261 in SceneRenderTargets will crash, so keep default
+        value = 0x3bc002d0
+    [[patch.be32]]
+        address = 0x8262ce2c
+        value = 0x4bd3ed14
+    [[patch.be32]]
+        address = 0x8262ce6c
+        value = 0x4bd3ecf4
+    [[patch.be32]]
+        address = 0x8236bb40
+        value = 0x3d608236
+    [[patch.be32]]
+        address = 0x8236bb44
+        value = 0x616bbb80
+    [[patch.be32]]
+        address = 0x8236bb48
+        value = 0xc04b0000
+    [[patch.be32]]
+        address = 0x8236bb4c
+        value = 0x482c12e4
+    [[patch.be32]]
+        address = 0x8236bb60
+        value = 0x3d608236
+    [[patch.be32]]
+        address = 0x8236bb64
+        value = 0x616bbb80
+    [[patch.be32]]
+        address = 0x8236bb68
+        value = 0xc02b0000
+    [[patch.be32]]
+        address = 0x8236bb6c
+        value = 0x482c1304
+    [[patch.f32]]
+        address = 0x8236bb80 # AR float for authored matinee
+        value = 2.33
+
+[[patch]]
+    name = "Steam Deck / 16:10 Aspect Ratio"
+    desc = "Must set present_letterbox = FALSE in the xenia canary config. Designed for Steam Deck and modern gaming laptop displays. Expands gameplay and cutscene rendering to true 16:10, updates the FOV axis constraint for proper framing, and adds pillarboxing for pre-rendered videos."
+    desc = "Must set present_letterbox = false in the Xenia Canary config."
+    author = "boma, TudorHorse"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x82971f3e
+        value = 0x0480
+    [[patch.f32]]
+        address = 0x820cded8
+        value = 1.6
+    [[patch.be16]]
+        address = 0x8262ce0c
+        value = 0x4800
+    [[patch.be32]]
+        address = 0x828e5b38
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x828e5b98
+        value = 0x4ba86060
+    [[patch.be32]]
+        address = 0x8236bbf8
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x8236bbfc
+        value = 0x3d603f66
+    [[patch.be32]]
+        address = 0x8236bc00
+        value = 0x616b6666
+    [[patch.be32]]
+        address = 0x8236bc04
+        value = 0x91610050
+    [[patch.be32]]
+        address = 0x8236bc08
+        value = 0xc0010050
+    [[patch.be32]]
+        address = 0x8236bc0c
+        value = 0xec210032
+    [[patch.be32]]
+        address = 0x8236bc14
+        value = 0x48579f88
+
+[[patch]]
+    name = "RTV Performance Fix For NVIDIA GPUs"
+    desc = "Optimizes the RTV shadow-rendering path to reduce the disproportionate performance penalty seen on NVIDIA GPUs. Streamlines shadow pass costs without altering shadow quality, providing smoother performance with no noticeable visual changes."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x827c9078
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x827caf2c
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x827e2af0
+        value = 0x4bb2edb0
+    [[patch.be32]]
+        address = 0x823118a0
+        value = 0x815e04e0
+    [[patch.be32]]
+        address = 0x823118a4
+        value = 0x5549014c
+    [[patch.be32]]
+        address = 0x823118a8
+        value = 0x2b290000
+    [[patch.be32]]
+        address = 0x823118ac
+        value = 0x409a000c
+    [[patch.be32]]
+        address = 0x823118b0
+        value = 0x2f10000c
+    [[patch.be32]]
+        address = 0x823118b4
+        value = 0x4098000c
+    [[patch.be32]]
+        address = 0x823118b8
+        value = 0x396b0001
+    [[patch.be32]]
+        address = 0x823118bc
+        value = 0x484d1238
+    [[patch.be32]]
+        address = 0x823118c0
+        value = 0x484d128c
+    [[patch.be32]]
+        address = 0x827dcf3c
+        value = 0x3aa00001
+    [[patch.be32]]
+        address = 0x829b29d4
+        value = 0x38600000
+    [[patch.be32]]
+        address = 0x827e1b48
+        value = 0x3aa00000
+    [[patch.be32]]
+        address = 0x827e1cec
+        value = 0x3b400000
+    [[patch.be32]]
+        address = 0x827df1e4
+        value = 0x39600000
+    [[patch.be32]]
+        address = 0x827e293c
+        value = 0x39600000
+    [[patch.be32]]
+        address = 0x827eafd0
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x827eb038
+        value = 0x39600001

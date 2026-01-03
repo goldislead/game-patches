@@ -45,23 +45,37 @@ hash = "8429D0AE190C10DB" # default.xex
         value = 0x38a00010
 
 [[patch]]
-    name = "Resolution Scaling Fix / Disable All Post-Processing"
-    desc = "Dramatically changes the overall look of the game, but fixes all edge-detection overcorrection and color smearing."
+    name = "Disable All Post-Processing"
+    desc = "Dramatically changes the overall look of the game, but fixes all edge-detection overcorrection and color smearing when upscaling."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x827e4774
+        value = 0x4800
+
+[[patch]]
+    name = "Resolution Scaling Fix"
+    desc = "Use alongside Disable FXAA. Patches post-processing effects to be upscaling-friendly."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be8]]
+        address = 0x8236ab07
+        value = 0x00
+    [[patch.be8]]
+        address = 0x8236ab47
+        value = 0x00
+
+[[patch]]
+    name = "Disable FXAA"
+    desc = "A clearer image at the expense of slightly more aliasing."
     author = "boma"
     is_enabled = false
 
     [[patch.be32]]
-        address = 0x827e363c
-        value = 0x38a00000
-    [[patch.be32]]
-        address = 0x827e3810
-        value = 0x38a00000
-    [[patch.be32]]
-        address = 0x827e3970
-        value = 0x38800004
-    [[patch.be32]] # nop finishing render pass from branching to temporal AA resolve
-        address = 0x827e392c
-        value = 0x60000000
+        address = 0x824408a8
+        value = 0x39600000
 
 [[patch]]
     name = "Disable Ambient Occlusion"
@@ -110,6 +124,16 @@ hash = "8429D0AE190C10DB" # default.xex
         value = 0x39400000
 
 [[patch]]
+    name = "Disable Film Grain"
+    desc = "Disables the film grain post-process effect. Does not impact performance."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x8243d854
+        value = 0xc01f0000
+
+[[patch]]
     name = "Disable Coalesced hash check"
     desc = "Allows for Coalesced modifications."
     author = "Sowa_95"
@@ -130,3 +154,131 @@ hash = "8429D0AE190C10DB" # default.xex
     [[patch.be8]]
         address = 0x835349ec # Frametime
         value = 0x01
+
+[[patch]]
+    name = "21:9 Aspect Ratio"
+    desc = "Must set present_letterbox = FALSE in the xenia canary config. Expands gameplay and cutscene rendering to true 21:9 ultrawide, updates the FOV axis constraint for proper framing, and adds pillarboxing for pre-rendered videos. Because the game now renders at 1280x550, certain elements may appear more aliased."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x82990abe
+        value = 0x0220
+    [[patch.be32]]
+        address = 0x827f0ecc # Define screen height in SceneRenderTargets, avoid crashing
+        value = 0x3bc002d0
+    [[patch.f32]]
+        address = 0x82082c50
+        value = 2.38
+    [[patch.be32]]
+        address = 0x82cb7dbc # Scale Scaleform UI
+        value = 0x38800001
+    [[patch.be32]]
+        address = 0x82901ae8
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x82901b44
+        value = 0x4ba61414
+    [[patch.be32]]
+        address = 0x82362f58
+        value = 0xecc94024
+    [[patch.be32]]
+        address = 0x82362f5c
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x82362f60
+        value = 0x3d603fa8
+    [[patch.be32]]
+        address = 0x82362f64
+        value = 0x616b0000
+    [[patch.be32]]
+        address = 0x82362f68
+        value = 0x91610058
+    [[patch.be32]]
+        address = 0x82362f6c
+        value = 0xc0010058
+    [[patch.be32]]
+        address = 0x82362f70
+        value = 0xec210032
+    [[patch.be32]]
+        address = 0x82362f74
+        value = 0x4859ebd4
+    [[patch.be32]]
+        address = 0x8264010c
+        value = 0x4bd22dd8
+    [[patch.be32]]
+        address = 0x8264014c
+        value = 0x4bd22da8
+    [[patch.be32]]
+        address = 0x82362ee4
+        value = 0x3d608236
+    [[patch.be32]]
+        address = 0x82362ee8
+        value = 0x616b2f04
+    [[patch.be32]]
+        address = 0x82362eec
+        value = 0xc04b0000
+    [[patch.be32]]
+        address = 0x82362ef0
+        value = 0x482dd220
+    [[patch.be32]]
+        address = 0x82362ef4
+        value = 0x3d608236
+    [[patch.be32]]
+        address = 0x82362ef8
+        value = 0x616b2f04
+    [[patch.be32]]
+        address = 0x82362efc
+        value = 0xc02b0000
+    [[patch.be32]]
+        address = 0x82362f00
+        value = 0x482dd250
+    [[patch.f32]]
+        address = 0x82362f04
+        value = 2.15
+
+[[patch]]
+    name = "Steam Deck / 16:10 Aspect Ratio Support"
+    desc = "Must set present_letterbox = FALSE in the xenia canary config. Designed for Steam Deck and modern gaming laptop displays. Expands gameplay and cutscene rendering to true 16:10, updates the FOV axis constraint for proper framing, and adds pillarboxing for pre-rendered videos."
+    author = "TudorHorse, boma"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x82990ae8
+        value = 0x0480
+    [[patch.f32]]
+        address = 0x82082c50
+        value = 1.6
+    [[patch.be16]]
+        address = 0x826400d0
+        value = 0x4800
+    [[patch.be32]]
+        address = 0x82901ae8
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x82901b44
+        value = 0x4ba61414
+    [[patch.be32]]
+        address = 0x82362f58
+        value = 0xecc94024
+    [[patch.be32]]
+        address = 0x82362f5c
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x82362f60
+        value = 0x3d603f66
+    [[patch.be32]]
+        address = 0x82362f64
+        value = 0x616b6666
+    [[patch.be32]]
+        address = 0x82362f68
+        value = 0x91610058
+    [[patch.be32]]
+        address = 0x82362f6c
+        value = 0xc0010058
+    [[patch.be32]]
+        address = 0x82362f70
+        value = 0xec210032
+    [[patch.be32]]
+        address = 0x82362f74
+        value = 0x4859ebd4
