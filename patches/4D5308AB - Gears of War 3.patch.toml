@@ -260,15 +260,6 @@ hash = "EF4AD5E9DD1982ED" # default.xex
     [[patch.be32]]
         address = 0x82301238 # skip stub
         value = 0x484cf69c # b 0x827D08D4
-    [[patch.be16]]
-        address = 0x82960bb2
-        value = 0x0200 # ShadowDepthBufferX = 512
-    [[patch.be16]]
-        address = 0x82960bce
-        value = 0x0180 # ShadowDepthBufferX = 384
-    [[patch.be16]]
-        address = 0x82960bd2
-        value = 0x0400 # WholeSceneShadowBuffer = 1024
     [[patch.be8]]
         address = 0x8233f20b # Should use HW branching PCF?
         value = 0x00 # NO

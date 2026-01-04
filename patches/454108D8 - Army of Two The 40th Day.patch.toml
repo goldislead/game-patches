@@ -56,3 +56,6 @@ hash = [
     [[patch.be8]]
         address = 0x8371360b
         value = 0x00
+    [[patch.be32]]
+        address = 0x82cca5a8
+        value = 0x39400000

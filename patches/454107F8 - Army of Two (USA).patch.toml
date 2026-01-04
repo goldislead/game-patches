@@ -34,3 +34,99 @@ hash = "2EDC4C4CEC3F7F8D" # default.xex
     [[patch.be32]]
         address = 0x829d57d0
         value = 0x38a00010
+
+[[patch]]
+    name = "21:9 Aspect Ratio Patch"
+    desc = "Must set present_letterbox = FALSE in the xenia canary config. Expands gameplay and cutscene rendering to true 21:9 ultrawide. Some UI elements will appear moderately stretched. Because the game now renders at 1280x550, certain elements may appear more aliased."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be16]]
+        address = 0x82785278
+        value = 0x4800
+    [[patch.be16]]
+        address = 0x829d6692
+        value = 0x0226
+    [[patch.f32]]
+        address = 0x8206c9d8
+        value = 2.33333
+    [[patch.be32]]
+        address = 0x82563920
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x825650e8
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x82621130
+        value = 0x39600001
+    [[patch.be32]]
+        address = 0x82627564
+        value = 0x3be00001
+    [[patch.be32]]
+        address = 0x8289d228
+        value = 0x38600232
+    [[patch.be32]]
+        address = 0x8289d22c
+        value = 0x48000008
+
+[[patch]]
+    name = "Upscaling Fix - Disable Gaussian Blur"
+    desc = "Forces the blur radius to 0, disabling Gaussian blur. Helps upscaling by reducing ghosting caused by blur sampling/resolves at higher internal resolutions."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x825600a0
+        value = 0xec210828
+    [[patch.be32]]
+        address = 0x825600c4
+        value = 0xec210828
+
+[[patch]]
+    name = "Flickering Decals Fix"
+    desc = "Fixes static decals (bullet-holes, bloodpools, etc) that cause z-fighting with RTV or FBO rendering. Not necessary when using ROV."
+    author = "boma"
+    is_enabled = false
+
+    [[patch.be32]]
+        address = 0x82894c44
+        value = 0x4be47d24 # b 0x826dc968
+    [[patch.be32]]
+        address = 0x826dc968
+        value = 0x3c00bc23
+    [[patch.be32]]
+        address = 0x826dc96c
+        value = 0x6000d70a
+    [[patch.be32]]
+        address = 0x826dc970
+        value = 0x900101f0
+    [[patch.be32]]
+        address = 0x826dc974
+        value = 0xc00101f0
+    [[patch.be32]]
+        address = 0x826dc978
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x826dc97c
+        value = 0x481b82cc # b 0x82894c48
+    [[patch.be32]]
+        address = 0x82894800
+        value = 0x4be48180 # b 0x826dc980
+    [[patch.be32]]
+        address = 0x826dc980
+        value = 0x3c00bc23
+    [[patch.be32]]
+        address = 0x826dc984
+        value = 0x6000d70a
+    [[patch.be32]]
+        address = 0x826dc988
+        value = 0x900101b0
+    [[patch.be32]]
+        address = 0x826dc98c
+        value = 0xc00101b0
+    [[patch.be32]]
+        address = 0x826dc990
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x826dc994
+        value = 0x481b7e70 # b 0x82894804
