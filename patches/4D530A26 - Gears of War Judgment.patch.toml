@@ -156,6 +156,61 @@ hash = "8429D0AE190C10DB" # default.xex
         value = 0x01
 
 [[patch]]
+    name = "Gears Judgment Retail - 21:9 Ultrawide Aspect Ratio Patch"
+    desc = "Must set present_letterbox = FALSE in the xenia canary config. Must use patched Coalesced_INT.bin (found on xenia-game-settings Github wiki) and Disable Coalesced Hash Check patch to prevent UI artifacts when alerts pop up. Expands gameplay and cutscene rendering to true 21:9 ultrawide, updates the FOV axis constraint for proper framing, and adds pillarboxing for pre-rendered videos. Since the game now renders at 1280x550, certain elements may appear more aliased."
+    author = "boma"
+    is_enabled = true
+
+    [[patch.be16]]
+        address = 0x82990abe
+        value = 0x0226
+    [[patch.f32]]
+        address = 0x82082bd8
+        value = 2.3273
+    [[patch.f32]]
+        address = 0x8208330c
+        value = 2.3273
+    [[patch.be32]]
+        address = 0x82369a80 # Vignette needs to be disabled for this mode; texture cannot be rescaled.
+        value = 0x4800000c
+    [[patch.be32]]
+        address = 0x827f0ecc # Define screen height in SceneRenderTargets, avoid crashing.
+        value = 0x3bc00261
+    [[patch.be32]]
+        address = 0x82cb7dbc # Scale Scaleform UI
+        value = 0x38800001
+    [[patch.be32]]
+        address = 0x82901ae8
+        value = 0x60000000
+    [[patch.be32]]
+        address = 0x82901b44
+        value = 0x4ba61414
+    [[patch.be32]]
+        address = 0x82362f58
+        value = 0xecc94024
+    [[patch.be32]]
+        address = 0x82362f5c
+        value = 0xec2701b2
+    [[patch.be32]]
+        address = 0x82362f60
+        value = 0x3d603fb9
+    [[patch.be32]]
+        address = 0x82362f64
+        value = 0x616b999a
+    [[patch.be32]]
+        address = 0x82362f68
+        value = 0x91610058
+    [[patch.be32]]
+        address = 0x82362f6c
+        value = 0xc0010058
+    [[patch.be32]]
+        address = 0x82362f70
+        value = 0xec210032
+    [[patch.be32]]
+        address = 0x82362f74
+        value = 0x4859ebd8
+
+[[patch]]
     name = "Steam Deck / 16:10 Aspect Ratio Support"
     desc = "Must set present_letterbox = FALSE in the xenia canary config. Designed for Steam Deck and modern gaming laptop displays. Expands gameplay and cutscene rendering to true 16:10, updates the FOV axis constraint for proper framing, and adds pillarboxing for pre-rendered videos."
     author = "TudorHorse, boma"
