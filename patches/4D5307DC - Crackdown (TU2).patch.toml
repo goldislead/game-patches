@@ -4,16 +4,6 @@ hash = "2A9BE95315738F6D" # default.xex
 #media_id = "596F9615" # Disc (World): http://redump.org/disc/11830
 
 [[patch]]
-    name = "Global Lights Rendering"
-    desc = "Disable rendering of lights to fix lights through walls. During reticle target calibration red lights will not render."
-    author = "Adrian"
-    is_enabled = false
-
-    [[patch.be8]]
-        address = 0x82c3abb4
-        value = 0x00
-
-[[patch]]
     name = "On-screen FPS counter"
     author = "Adrian"
     is_enabled = false

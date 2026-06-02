@@ -51,32 +51,6 @@ hash = "3D790F44F99FCF0E" # default.xex
         value = 0x3ae00000 # li r23, 0
 
 [[patch]]
-    name = "Disable Lens Flares"
-    desc = "Fixes unoccluded bright lights on-screen without breaking interactibles."
-    author = "HouseofTudor"
-    is_enabled = false
-
-    [[patch.be16]]
-        address = 0x82716cf8
-        value = 0x4800
-    [[patch.be32]]
-        address = 0x82716d14
-        value = 0xc01e0000
-
-[[patch]]
-    name = "HQ Post-Processing"
-    desc = "Fixes pixelated DOF double-vision and forces bloom with higher sample count."
-    author = "HouseofTudor"
-    is_enabled = false
-
-    [[patch.be32]]
-        address = 0x822ea624
-        value = 0xc0050000
-    [[patch.be32]]
-        address = 0x822ea830
-        value = 0x39600003
-
-[[patch]]
     name = "Disable Motion Blur"
     author = "boma"
     is_enabled = false

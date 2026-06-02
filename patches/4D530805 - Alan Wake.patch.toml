@@ -30,16 +30,6 @@ hash = "C7BBFAD65BC0D6B3" # default.xex
         value = 0x60000000
 
 [[patch]]
-    name = "Disable Lens Flares"
-    desc = "Fixes unoccluded bright lights on-screen."
-    author = "Sowa_95"
-    is_enabled = false
-
-    [[patch.be16]]
-        address = 0x82227a72
-        value = 0x0000
-
-[[patch]]
     name = "Skip intro"
     author = "Sowa_95"
     is_enabled = false

@@ -14,16 +14,6 @@ hash = "8309EB7166C1B9C3" # default.xex
         value = 0x41
 
 [[patch]]
-    name = "Global Lights Rendering"
-    desc = "Disable rendering of lights to fix lights through walls. During reticle target collaboration red lights will not render."
-    author = "Adrian"
-    is_enabled = false
-
-    [[patch.be8]]
-        address = 0x830a0547
-        value = 0x00
-
-[[patch]]
     name = "Infinite Ammo"
     author = "Adrian, Crippy"
     is_enabled = false
